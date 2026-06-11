@@ -90,10 +90,17 @@ def donut(labels: list, values: list, title: str = ""):
     return fig
 
 
-def progress_bar(actual: float, target: float, label: str):
+def progress_bar(actual: float, target: float, label: str, kind: str = "currency"):
+    """kind: 'currency' (฿1.2M) | 'number' (1.2M) | 'int' (1,234)"""
     pct = (actual / target * 100) if target else 0
     pct_capped = min(pct, 100)
     color = BRAND["success"] if pct >= 80 else (BRAND["accent_dark"] if pct >= 50 else BRAND["danger"])
+    if kind == "currency":
+        fmt = F.fmt_compact
+    elif kind == "int":
+        fmt = lambda v: F.fmt_int(int(v or 0))
+    else:
+        fmt = F.fmt_int_compact
     st.markdown(
         f"""
         <div style="margin-bottom: 1rem;">
@@ -101,7 +108,7 @@ def progress_bar(actual: float, target: float, label: str):
                         font-size:0.85rem;margin-bottom:6px;">
                 <span style="font-weight:600;color:{BRAND['text']};">{label}</span>
                 <span style="color:{BRAND['text_muted']};">
-                    {F.fmt_compact(actual)} / {F.fmt_compact(target)}
+                    {fmt(actual)} / {fmt(target)}
                     <strong style="color:{color};margin-left:8px;">{pct:.1f}%</strong>
                 </span>
             </div>

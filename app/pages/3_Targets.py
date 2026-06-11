@@ -143,9 +143,9 @@ with tab1:
             with col1:
                 charts.progress_bar(row.get("actual_gmv", 0), row["target_gmv"], "GMV")
             with col2:
-                charts.progress_bar(row.get("actual_orders", 0), row["target_orders"], "Orders")
+                charts.progress_bar(row.get("actual_orders", 0), row["target_orders"], "Orders", kind="int")
             with col3:
-                charts.progress_bar(row.get("actual_creators", 0), row["target_creators"], "Creators")
+                charts.progress_bar(row.get("actual_creators", 0), row["target_creators"], "Creators", kind="int")
 
             ac1, ac2, _ = st.columns([1, 1, 6])
             if ac1.button("✎ แก้ไข", key=f"em_{month_iso}", use_container_width=True):
@@ -250,7 +250,7 @@ with tab2:
             with col1:
                 charts.progress_bar(actual_gmv, row["target_gmv"], "GMV")
             with col2:
-                charts.progress_bar(actual_orders, row["target_orders"], "Orders")
+                charts.progress_bar(actual_orders, row["target_orders"], "Orders", kind="int")
 
             ac1, ac2, _ = st.columns([1, 1, 6])
             if ac1.button("✎ แก้ไข", key=f"eq_{row['quarter']}", use_container_width=True):
@@ -425,7 +425,7 @@ with tab3:
             with col1:
                 charts.progress_bar(actual_gmv, row["target_gmv"], "GMV")
             with col2:
-                charts.progress_bar(actual_orders, row["target_orders"], "Orders")
+                charts.progress_bar(actual_orders, row["target_orders"], "Orders", kind="int")
 
             # Matched videos table
             if tag_list:

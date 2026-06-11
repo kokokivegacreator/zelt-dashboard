@@ -54,6 +54,15 @@ def fmt_compact(val: float) -> str:
     return f"฿{val:,.0f}"
 
 
+def fmt_int_compact(val: float) -> str:
+    val = float(val or 0)
+    if val >= 1_000_000:
+        return f"{val/1_000_000:.2f}M"
+    if val >= 1_000:
+        return f"{val/1_000:.1f}K"
+    return f"{val:,.0f}"
+
+
 def fmt_percent(val: float) -> str:
     return f"{val:.2f}%"
 
