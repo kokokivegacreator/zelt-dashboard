@@ -15,8 +15,8 @@ def _apply_theme(fig: go.Figure, height: int = 380) -> go.Figure:
         height=height,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter, sans-serif", color=BRAND["text"], size=12),
-        title=dict(font=dict(family="Playfair Display, serif", size=15,
+        font=dict(family="IBM Plex Sans Thai, sans-serif", color=BRAND["text"], size=12),
+        title=dict(font=dict(family="IBM Plex Sans Thai, sans-serif", size=15,
                              color=BRAND["primary_dark"])),
         margin=dict(l=10, r=10, t=40, b=20),
         legend=dict(
@@ -26,7 +26,7 @@ def _apply_theme(fig: go.Figure, height: int = 380) -> go.Figure:
         ),
         hoverlabel=dict(
             bgcolor="white",
-            font=dict(family="Inter, sans-serif", color=BRAND["text"]),
+            font=dict(family="IBM Plex Sans Thai, sans-serif", color=BRAND["text"]),
             bordercolor=BRAND["primary"],
         ),
         colorway=PLOTLY_COLORWAY,
@@ -82,7 +82,7 @@ def donut(labels: list, values: list, title: str = ""):
     fig = go.Figure(data=[go.Pie(
         labels=labels, values=values, hole=0.62,
         marker=dict(colors=PALETTE, line=dict(color="white", width=3)),
-        textfont=dict(family="Inter, sans-serif", size=12),
+        textfont=dict(family="IBM Plex Sans Thai, sans-serif", size=12),
         hovertemplate="<b>%{label}</b><br>%{value:,.0f} (%{percent})<extra></extra>",
     )])
     fig.update_layout(title=title)

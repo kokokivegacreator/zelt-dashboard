@@ -28,16 +28,17 @@ def inject_css() -> None:
     st.markdown(
         f"""
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap');
 
-        html, body, [class*="css"] {{
-            font-family: 'Inter', -apple-system, sans-serif;
+        html, body, [class*="css"], button, input, textarea, select {{
+            font-family: 'IBM Plex Sans Thai', sans-serif !important;
         }}
 
         h1, h2, h3 {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             color: {BRAND['text']};
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }}
 
         .block-container {{
@@ -88,13 +89,13 @@ def inject_css() -> None:
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 30px;
             font-weight: 700;
             box-shadow: 0 6px 18px rgba(201, 169, 97, 0.35);
         }}
         .zelt-hero-name {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 2.4rem;
             font-weight: 700;
             line-height: 1;
@@ -151,7 +152,7 @@ def inject_css() -> None:
             font-size: 14px;
         }}
         .zelt-card-value {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 2rem;
             font-weight: 700;
             color: {BRAND['primary_dark']};
@@ -178,7 +179,7 @@ def inject_css() -> None:
             letter-spacing: 1px;
         }}
         div[data-testid="stMetricValue"] {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 1.9rem !important;
             color: {BRAND['primary_dark']} !important;
         }}
@@ -205,7 +206,7 @@ def inject_css() -> None:
         }}
 
         .zelt-section-title {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 1.4rem;
             color: {BRAND['primary_dark']};
             margin: 0.5rem 0 1rem 0;
@@ -242,7 +243,7 @@ def inject_css() -> None:
             margin-bottom: 0.3rem;
         }}
         .zelt-subhero-title {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 2rem;
             font-weight: 700;
             color: {BRAND['primary_dark']};
@@ -287,7 +288,7 @@ def inject_css() -> None:
             margin-bottom: 0.6rem;
         }}
         .zelt-kpi-value {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 1.85rem;
             font-weight: 700;
             color: {BRAND['primary_dark']};
@@ -314,7 +315,7 @@ def inject_css() -> None:
             margin-bottom: 1.2rem;
         }}
         .zelt-chart-title {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 1.15rem;
             color: {BRAND['primary_dark']};
             margin: 0 0 0.5rem 0;
@@ -355,7 +356,7 @@ def inject_css() -> None:
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }}
         .zelt-rank-val {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-weight: 700;
             color: {BRAND['primary_dark']};
             font-size: 0.95rem;
@@ -419,7 +420,7 @@ def inject_css() -> None:
             flex-wrap: wrap;
         }}
         .zelt-item-title {{
-            font-family: 'Playfair Display', serif;
+            font-family: 'IBM Plex Sans Thai', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
             color: {BRAND['primary_dark']};
@@ -545,9 +546,9 @@ def sidebar_brand() -> None:
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <div style="width:38px;height:38px;background:{BRAND['primary']};color:{BRAND['cream']};
                                 border-radius:10px;display:flex;align-items:center;justify-content:center;
-                                font-family:'Playfair Display',serif;font-size:22px;font-weight:700;">Z</div>
+                                font-family:'IBM Plex Sans Thai',sans-serif;font-size:22px;font-weight:700;">Z</div>
                     <div>
-                        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:{BRAND['primary_dark']};line-height:1;">Zelt</div>
+                        <div style="font-family:'IBM Plex Sans Thai',sans-serif;font-size:1.3rem;font-weight:700;color:{BRAND['primary_dark']};line-height:1;">Zelt</div>
                         <div style="font-size:0.7rem;color:{BRAND['text_muted']};letter-spacing:1.5px;text-transform:uppercase;">Dashboard</div>
                     </div>
                 </div>
