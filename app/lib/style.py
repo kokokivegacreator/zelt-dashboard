@@ -219,6 +219,158 @@ def inject_css() -> None:
             background: {BRAND['accent']};
             border-radius: 2px;
         }}
+
+        .zelt-subhero {{
+            background: linear-gradient(135deg, {BRAND['cream_dark']} 0%, {BRAND['cream']} 100%);
+            border: 1px solid rgba(74, 107, 58, 0.10);
+            border-radius: 16px;
+            padding: 1.6rem 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }}
+        .zelt-subhero-left {{ flex: 1; min-width: 280px; }}
+        .zelt-subhero-eyebrow {{
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: {BRAND['accent_dark']};
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }}
+        .zelt-subhero-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: {BRAND['primary_dark']};
+            line-height: 1.15;
+            margin: 0;
+        }}
+        .zelt-subhero-sub {{
+            font-size: 0.95rem;
+            color: {BRAND['text_muted']};
+            margin-top: 0.35rem;
+        }}
+
+        .zelt-kpi {{
+            background: white;
+            border: 1px solid rgba(74, 107, 58, 0.10);
+            border-radius: 16px;
+            padding: 1.3rem 1.4rem;
+            box-shadow: 0 2px 12px rgba(45, 58, 42, 0.04);
+            transition: all 0.25s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }}
+        .zelt-kpi::before {{
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: {BRAND['accent']};
+            opacity: 0.7;
+        }}
+        .zelt-kpi:hover {{
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(45, 58, 42, 0.10);
+        }}
+        .zelt-kpi-label {{
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: {BRAND['text_muted']};
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+        }}
+        .zelt-kpi-value {{
+            font-family: 'Playfair Display', serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: {BRAND['primary_dark']};
+            line-height: 1.1;
+        }}
+        .zelt-kpi-delta {{
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }}
+        .zelt-kpi-delta.up {{ background: {BRAND['success']}22; color: {BRAND['success']}; }}
+        .zelt-kpi-delta.down {{ background: {BRAND['danger']}22; color: {BRAND['danger']}; }}
+        .zelt-kpi-delta.flat {{ background: {BRAND['cream_dark']}; color: {BRAND['text_muted']}; }}
+
+        .zelt-chart-card {{
+            background: white;
+            border: 1px solid rgba(74, 107, 58, 0.10);
+            border-radius: 16px;
+            padding: 1.3rem 1.4rem 0.6rem 1.4rem;
+            box-shadow: 0 2px 12px rgba(45, 58, 42, 0.04);
+            margin-bottom: 1.2rem;
+        }}
+        .zelt-chart-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: {BRAND['primary_dark']};
+            margin: 0 0 0.5rem 0;
+        }}
+        .zelt-chart-cap {{
+            font-size: 0.8rem;
+            color: {BRAND['text_muted']};
+            margin-bottom: 0.6rem;
+        }}
+
+        .zelt-rank-row {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 0.2rem;
+            border-bottom: 1px solid rgba(74, 107, 58, 0.08);
+        }}
+        .zelt-rank-row:last-child {{ border-bottom: none; }}
+        .zelt-rank-left {{
+            display: flex; align-items: center; gap: 12px;
+            flex: 1; min-width: 0;
+        }}
+        .zelt-rank-num {{
+            width: 28px; height: 28px;
+            background: {BRAND['cream_dark']};
+            color: {BRAND['primary_dark']};
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem;
+            flex-shrink: 0;
+        }}
+        .zelt-rank-row:nth-child(1) .zelt-rank-num {{
+            background: {BRAND['accent']}; color: {BRAND['primary_dark']};
+        }}
+        .zelt-rank-name {{
+            font-weight: 500;
+            color: {BRAND['text']};
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }}
+        .zelt-rank-val {{
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: {BRAND['primary_dark']};
+            font-size: 0.95rem;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }}
+
+        div[data-testid="stDateInput"] label,
+        div[data-testid="stSelectbox"] label {{
+            font-size: 0.78rem !important;
+            font-weight: 600 !important;
+            color: {BRAND['text_muted']} !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -257,6 +409,64 @@ def metric_card(label: str, value: str, icon: str = "•", foot: str = "") -> st
 
 def section_title(text: str) -> None:
     st.markdown(f'<div class="zelt-section-title">{text}</div>', unsafe_allow_html=True)
+
+
+def subpage_hero(eyebrow: str, title: str, subtitle: str = "") -> None:
+    st.markdown(
+        f"""
+        <div class="zelt-subhero">
+            <div class="zelt-subhero-left">
+                <div class="zelt-subhero-eyebrow">{eyebrow}</div>
+                <div class="zelt-subhero-title">{title}</div>
+                <div class="zelt-subhero-sub">{subtitle}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def kpi_card(label: str, value: str, delta: str | None = None,
+             delta_dir: str = "flat") -> str:
+    delta_html = ""
+    if delta:
+        arrow = "▲" if delta_dir == "up" else ("▼" if delta_dir == "down" else "•")
+        delta_html = f'<div class="zelt-kpi-delta {delta_dir}">{arrow} {delta}</div>'
+    return f"""
+    <div class="zelt-kpi">
+        <div class="zelt-kpi-label">{label}</div>
+        <div class="zelt-kpi-value">{value}</div>
+        {delta_html}
+    </div>
+    """
+
+
+def chart_card_open(title: str, caption: str = "") -> None:
+    cap = f'<div class="zelt-chart-cap">{caption}</div>' if caption else ""
+    st.markdown(
+        f'<div class="zelt-chart-card"><div class="zelt-chart-title">{title}</div>{cap}',
+        unsafe_allow_html=True,
+    )
+
+
+def chart_card_close() -> None:
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+def rank_list(items: list[tuple[str, str]]) -> None:
+    rows = "".join(
+        f"""
+        <div class="zelt-rank-row">
+            <div class="zelt-rank-left">
+                <div class="zelt-rank-num">{i+1}</div>
+                <div class="zelt-rank-name">{name}</div>
+            </div>
+            <div class="zelt-rank-val">{val}</div>
+        </div>
+        """
+        for i, (name, val) in enumerate(items)
+    )
+    st.markdown(rows, unsafe_allow_html=True)
 
 
 def sidebar_brand() -> None:
