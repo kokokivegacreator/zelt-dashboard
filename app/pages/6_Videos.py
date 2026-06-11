@@ -1,10 +1,11 @@
 import pandas as pd
 import streamlit as st
 
-from lib import db, format as F
+from lib import db, format as F, style
 
 st.set_page_config(page_title="Videos — Zelt", page_icon="🎥", layout="wide")
-st.title("Video Performance")
+style.inject_css()
+style.sidebar_brand()
 
 
 @st.cache_data(ttl=300)
@@ -15,10 +16,17 @@ def load_videos():
 vdf = load_videos()
 
 if vdf.empty:
+    style.subpage_hero("VIDEOS", "Video Performance", "ยังไม่มีข้อมูล")
     st.warning("ยังไม่มีข้อมูล video")
     st.stop()
 
 vdf["post_date"] = pd.to_datetime(vdf["post_date"]).dt.date
+
+style.subpage_hero(
+    eyebrow="VIDEOS",
+    title="Video Performance",
+    subtitle=f"{len(vdf):,} clip ทั้งหมดในระบบ",
+)
 
 c1, c2, c3 = st.columns([2, 1, 1])
 with c1:
@@ -37,11 +45,15 @@ if creator_filter != "(ทุกคน)":
 view = view[view["gmv"] >= min_gmv]
 view = view.sort_values(sort_by, ascending=False)
 
-k1, k2, k3, k4 = st.columns(4)
-k1.metric("จำนวน Video", F.fmt_int(len(view)))
-k2.metric("GMV รวม", F.fmt_compact(view["gmv"].sum()))
-k3.metric("Avg CTR", F.fmt_percent(view["affiliate_ctr"].mean()))
-k4.metric("Avg GPM", F.fmt_currency(view["shoppable_video_gpm"].mean()))
+style.section_title("ภาพรวม")
+k1, k2, k3, k4 = st.columns(4, gap="small")
+k1.markdown(style.kpi_card("จำนวน Video", F.fmt_int(len(view))), unsafe_allow_html=True)
+k2.markdown(style.kpi_card("GMV รวม", F.fmt_compact(view["gmv"].sum())), unsafe_allow_html=True)
+k3.markdown(style.kpi_card("Avg CTR", F.fmt_percent(view["affiliate_ctr"].mean())), unsafe_allow_html=True)
+k4.markdown(style.kpi_card("Avg GPM", F.fmt_currency(view["shoppable_video_gpm"].mean())), unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+style.section_title("ตาราง Videos")
 
 display = view[[
     "video_name", "creator_username", "post_date", "gmv", "affiliate_items_sold",
@@ -52,6 +64,7 @@ display = view[[
 display.columns = ["Title", "Creator", "Posted", "GMV", "Items", "Orders",
                    "Impressions", "CTR", "GPM", "Likes", "Comments", "Link"]
 
+style.chart_card_open(f"พบ {len(view):,} clip", f"เรียงตาม {sort_by}")
 st.dataframe(display, hide_index=True, use_container_width=True,
              column_config={
                  "Title": st.column_config.TextColumn(width="medium"),
@@ -60,3 +73,4 @@ st.dataframe(display, hide_index=True, use_container_width=True,
                  "CTR": st.column_config.NumberColumn(format="%.2f%%"),
                  "Link": st.column_config.LinkColumn("TikTok", display_text="เปิด"),
              })
+style.chart_card_close()

@@ -1,14 +1,19 @@
 import io
-from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
-from lib import db, etl, parsers
+from lib import db, etl, parsers, style
 
 st.set_page_config(page_title="Upload — Zelt", page_icon="📤", layout="wide")
-st.title("Upload Data")
-st.caption("ลากไฟล์ xlsx มาวาง — ระบบจะ detect ชนิดอัตโนมัติแล้วเอาเข้า DB")
+style.inject_css()
+style.sidebar_brand()
+
+style.subpage_hero(
+    eyebrow="UPLOAD",
+    title="นำเข้าข้อมูลใหม่",
+    subtitle="ลากไฟล์ xlsx มาวาง — ระบบจะ detect ชนิดอัตโนมัติแล้วเอาเข้า DB",
+)
 
 with st.expander("รูปแบบไฟล์ที่รองรับ"):
     st.markdown("""
@@ -22,6 +27,8 @@ with st.expander("รูปแบบไฟล์ที่รองรับ"):
 
 **หมายเหตุ:** `ListCreators_*` ต้องระบุ Product ID (จากชื่อโฟลเดอร์เดิม) — ถ้า upload ผ่านเว็บ ใส่ Product ID เพิ่มในช่องล่าง
 """)
+
+style.section_title("Upload ไฟล์")
 
 product_hint = st.text_input("Product ID (เฉพาะกรณีอัพ ListCreators_*)",
                               help="ใส่ Product ID ที่ ListCreators นั้นๆ ขึ้นกับ")
@@ -43,16 +50,21 @@ if files and st.button("Import ทั้งหมด", type="primary"):
             results.append({"file": f.name, "status": "error", "notes": str(e)})
         progress.progress((i + 1) / len(files))
     st.success(f"นำเข้าเสร็จ {len(results)} ไฟล์")
+    style.chart_card_open("ผลการนำเข้า", "")
     st.dataframe(pd.DataFrame(results), hide_index=True, use_container_width=True)
+    style.chart_card_close()
     st.cache_data.clear()
 
-st.markdown("---")
-st.subheader("Upload Log")
+st.markdown("<br>", unsafe_allow_html=True)
+style.section_title("Upload Log")
+
 log = db.fetch_all("upload_log", order="-uploaded_at", limit=50)
 if log:
     df = pd.DataFrame(log)
+    style.chart_card_open(f"{len(log)} รายการล่าสุด", "")
     st.dataframe(df[["uploaded_at", "filename", "file_type", "date_range",
                      "rows_imported", "status", "notes"]],
                   hide_index=True, use_container_width=True)
+    style.chart_card_close()
 else:
     st.info("ยังไม่มี upload log")
