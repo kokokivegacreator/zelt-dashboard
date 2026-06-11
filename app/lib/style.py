@@ -371,6 +371,63 @@ def inject_css() -> None:
             text-transform: uppercase;
             letter-spacing: 1px;
         }}
+
+        .zelt-chip {{
+            display: inline-block;
+            background: {BRAND['accent']}25;
+            color: {BRAND['accent_dark']};
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin: 2px 4px 2px 0;
+            border: 1px solid {BRAND['accent']}40;
+        }}
+        .zelt-chip-sage {{
+            background: {BRAND['primary']}15;
+            color: {BRAND['primary_dark']};
+            border-color: {BRAND['primary']}30;
+        }}
+
+        .zelt-badge {{
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }}
+        .zelt-badge.active {{ background: {BRAND['success']}22; color: {BRAND['success']}; }}
+        .zelt-badge.done {{ background: {BRAND['text_muted']}22; color: {BRAND['text_muted']}; }}
+        .zelt-badge.upcoming {{ background: {BRAND['accent']}25; color: {BRAND['accent_dark']}; }}
+
+        .zelt-item-card {{
+            background: white;
+            border: 1px solid rgba(74, 107, 58, 0.10);
+            border-radius: 14px;
+            padding: 1.2rem 1.4rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(45, 58, 42, 0.03);
+        }}
+        .zelt-item-head {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 0.4rem;
+            flex-wrap: wrap;
+        }}
+        .zelt-item-title {{
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: {BRAND['primary_dark']};
+        }}
+        .zelt-item-meta {{
+            font-size: 0.82rem;
+            color: {BRAND['text_muted']};
+        }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -467,6 +524,17 @@ def rank_list(items: list[tuple[str, str]]) -> None:
         for i, (name, val) in enumerate(items)
     )
     st.markdown(rows, unsafe_allow_html=True)
+
+
+def chips(tags: list[str], style: str = "gold") -> str:
+    if not tags:
+        return ""
+    cls = "zelt-chip" if style == "gold" else "zelt-chip zelt-chip-sage"
+    return "".join(f'<span class="{cls}">#{t}</span>' for t in tags)
+
+
+def badge(text: str, kind: str = "active") -> str:
+    return f'<span class="zelt-badge {kind}">{text}</span>'
 
 
 def sidebar_brand() -> None:

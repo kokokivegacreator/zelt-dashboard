@@ -38,6 +38,24 @@ def fetch_all(table: str, select: str = "*", filters: dict | None = None,
     return rows
 
 
+def delete(table: str, filters: dict) -> int:
+    client = get_client()
+    q = client.table(table).delete()
+    for col, val in filters.items():
+        q = q.eq(col, val)
+    r = q.execute()
+    return len(r.data or [])
+
+
+def update(table: str, values: dict, filters: dict) -> int:
+    client = get_client()
+    q = client.table(table).update(values)
+    for col, val in filters.items():
+        q = q.eq(col, val)
+    r = q.execute()
+    return len(r.data or [])
+
+
 def upsert(table: str, rows: list[dict], on_conflict: str | None = None, chunk: int = 500):
     if not rows:
         return 0
