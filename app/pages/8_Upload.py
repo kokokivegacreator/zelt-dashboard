@@ -30,8 +30,18 @@ with st.expander("รูปแบบไฟล์ที่รองรับ"):
 
 style.section_title("Upload ไฟล์")
 
-product_hint = st.text_input("Product ID (เฉพาะกรณีอัพ ListCreators_*)",
-                              help="ใส่ Product ID ที่ ListCreators นั้นๆ ขึ้นกับ")
+products = db.fetch_all("dim_products", select="product_id,name", order="name")
+product_options = {"— ไม่ระบุ —": None}
+for p in products:
+    label = f"{p['name'][:60]}{'…' if len(p['name']) > 60 else ''}  ({p['product_id']})"
+    product_options[label] = p["product_id"]
+
+selected_label = st.selectbox(
+    "Product (เฉพาะกรณีอัพ ListCreators_*)",
+    options=list(product_options.keys()),
+    help="เลือก Product ที่ไฟล์ ListCreators นั้นๆ ขึ้นกับ — ไฟล์อื่นไม่ต้องเลือก",
+)
+product_hint = product_options[selected_label]
 
 files = st.file_uploader("เลือกไฟล์ (หลายไฟล์ได้)",
                           type=["xlsx"], accept_multiple_files=True)
@@ -43,7 +53,7 @@ if files and st.button("Import ทั้งหมด", type="primary"):
         try:
             b = io.BytesIO(f.getvalue())
             r = etl.process_file(f.name, file_bytes=b,
-                                  product_id_hint=product_hint or None)
+                                  product_id_hint=product_hint)
             etl.log_upload(f.name, r)
             results.append({"file": f.name, **r})
         except Exception as e:
